@@ -5,7 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/hooks/use-auth"
-import {  serverTimestamp } from "firebase/firestore"
+import {  serverTimestamp, addDoc, collection } from "firebase/firestore"
 import type { Job } from "@/lib/types"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -18,6 +18,7 @@ import { LoadingSpinner } from "@/components/loading-spinner"
 import { ArrowLeft, Save, Send } from "lucide-react"
 import Link from "next/link"
 import { toast } from "sonner"
+import { db } from "@/lib/firebase"
 
 export default function NewJobPage() {
   const { user, loading: authLoading } = useAuth()
@@ -112,6 +113,8 @@ export default function NewJobPage() {
         status,
       }
 
+      // Add this line to actually write to Firestore
+      await addDoc(collection(db, "jobs"), jobData)
 
       toast.success(status === "active" ? "Job posted successfully" : "Draft saved")
 
