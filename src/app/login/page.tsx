@@ -4,7 +4,6 @@
 import type React from "react";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
@@ -24,7 +23,6 @@ import Link from "next/link";
 import { toast } from "sonner";
 
 export default function Login() {
-  const router = useRouter();
   const { setAuthCookies } = useAuth();
 
   const [formData, setFormData] = useState({
@@ -68,8 +66,7 @@ export default function Login() {
 
         toast.success("Logged in successfully!");
 
-        // Redirect based on role
-        router.push("/dashboard");
+        window.location.href = "/dashboard"; 
       }
     } catch (error: any) {
       toast.error(error.message);

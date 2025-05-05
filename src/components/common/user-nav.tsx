@@ -36,7 +36,7 @@ export function UserNav({ user }: UserNavProps) {
       setAuthCookies(null)
 
       toast.success("Signed out successfully")
-      router.push("/")
+      window.location.href = "/"
     } catch (error) {
       console.error("Error signing out:", error)
       toast.error("There was a problem signing out. Please try again later.")
