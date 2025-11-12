@@ -5,13 +5,12 @@ import { getStorage } from "firebase/storage";
 import { getFunctions } from "firebase/functions";
 
 // Check if Firebase configuration is available
-const hasFirebaseConfig =
-  process.env.NEXT_PUBLIC_FIREBASE_API_KEY &&
-  process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN &&
-  process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
+// const hasFirebaseConfig =
+//   process.env.NEXT_PUBLIC_FIREBASE_API_KEY &&
+//   process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN &&
+//   process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
 // Use environment variables if available, otherwise use placeholder values for demo
-const firebaseConfig = hasFirebaseConfig
-  ? {
+const firebaseConfig = {
       apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
       authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
       projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -19,15 +18,6 @@ const firebaseConfig = hasFirebaseConfig
       messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
       appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
     }
-  : {
-      // Demo configuration (this won't connect to a real Firebase project)
-      apiKey: "AIzaSyDUBv6vWCwfJs_fq0XQCp5X1KRh1P63KsI",
-      authDomain: "demo-job-app.firebaseapp.com",
-      projectId: "demo-job-app",
-      storageBucket: "demo-job-app.firebasestorage.app",
-      messagingSenderId: "137796441341",
-      appId: "1:137796441341:web:3174a5f3feeab6abd0da94",
-    };
 
 // Firebase app initialization
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
