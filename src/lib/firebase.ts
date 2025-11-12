@@ -37,6 +37,6 @@ const functions = getFunctions(app);
 // }
 
 // Flag to indicate if we're using the demo configuration
-const isUsingDemoConfig = !hasFirebaseConfig;
+// const isUsingDemoConfig = !hasFirebaseConfig;
 
-export { app, auth, db, storage, functions, isUsingDemoConfig };
+export { app, auth, db, storage, functions };

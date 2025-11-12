@@ -7,8 +7,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { UserNav } from "@/components/common/user-nav";
 import { MobileNav } from "@/components/mobile-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { AlertCircle, Bell } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Bell } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useChat } from "@/components/sections/chat/chat-provider";
 import { Badge } from "@/components/ui/badge";
@@ -21,7 +20,7 @@ import {
 import { useRouter } from "next/navigation";
 
 export function Header() {
-  const { user, loading, isDemo } = useAuth();
+  const { user, loading } = useAuth();
   const [unreadCount, setUnreadCount] = useState(0);
   const [notifications, setNotifications] = useState<any[]>([]);
   const router = useRouter();
@@ -79,18 +78,6 @@ export function Header() {
   return (
     <header className="border-b">
       <div className="max-w-7xl mx-auto w-full">
-        {isDemo && (
-          <Alert
-            variant="destructive"
-            className="rounded-none border-x-0 border-t-0"
-          >
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>
-              Firebase configuration is missing. Set up environment variables to
-              enable authentication and database features.
-            </AlertDescription>
-          </Alert>
-        )}
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <Link href="/" className="font-bold text-2xl">

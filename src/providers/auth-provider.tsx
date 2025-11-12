@@ -5,22 +5,19 @@ import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { auth, db, isUsingDemoConfig } from "@/lib/firebase";
+import { auth, db } from "@/lib/firebase";
 import type { User } from "@/lib/types";
 import Cookies from "js-cookie"
-import { toast } from "sonner";
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  isDemo: boolean;
   setAuthCookies: (user: User | null) => void;
 }
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
-  isDemo: false,
   setAuthCookies: () => {},
 });
 
@@ -67,17 +64,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    if (isUsingDemoConfig) {
-      // If using demo config, show a notification and skip authentication
-      toast.info("Demo Mode Active", {
-        description:
-          "Firebase configuration is not set. Some features will be limited.",
-        duration: 6000,
-      });
-      setLoading(false);
-      return;
-    }
-
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       try {
         if (firebaseUser) {
@@ -121,7 +107,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, isDemo: isUsingDemoConfig, setAuthCookies }}
+      value={{ user, loading, setAuthCookies }}
     >
       {children}
     </AuthContext.Provider>
